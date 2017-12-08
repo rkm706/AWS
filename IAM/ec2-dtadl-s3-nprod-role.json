@@ -1,0 +1,29 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ListObjectsinBucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:GetBucketLocation"
+            ],
+            "Resource": [
+            "arn:aws:s3:::hc-dl-hwx-nprod-hcdtadev01",
+            "arn:aws:s3:::hc-dl-hwx-nprod-hcdtastg01"
+            ]
+        },
+        {
+            "Sid": "ReadWriteObjectsinBucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject"
+            ],
+            "Resource": [
+            "arn:aws:s3:::hc-dl-hwx-nprod-hcdtadev01/*",
+            "arn:aws:s3:::hc-dl-hwx-nprod-hcdtastg01/*"
+            ]
+        }
+    ]
+}

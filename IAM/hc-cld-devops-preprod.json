@@ -1,0 +1,194 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Resources": {
+        "DevOpsRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "RoleName": "hc-cld-devops",
+                "Path": "/hc/",
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Sid": "",
+                            "Effect": "Allow",
+                            "Principal": {
+                                "AWS": "arn:aws:iam::839933357981:root"
+                            },
+                            "Action": "sts:AssumeRole"
+                        },
+                        {
+                            "Sid": "",
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Federated": "arn:aws:iam::164996153968:saml-provider/ge-saml-for-aws"
+                            },
+                            "Action": "sts:AssumeRoleWithSAML",
+                            "Condition": {
+                                "StringEquals": {
+                                    "SAML:aud": "https://signin.aws.amazon.com/saml"
+                                }
+                            }
+                        }
+                    ]
+                },
+                "ManagedPolicyArns": [
+                    "arn:aws:iam::164996153968:policy/cs/awsiam-sauce",
+                    "arn:aws:iam::164996153968:policy/cs/awsiam-sauce-the-sequel"
+                ]
+            }
+        },
+        "RolePolicies": {
+            "Type": "AWS::IAM::Policy",
+            "Properties": {
+                "PolicyName": "hc-cld-devops-policy",
+                "Roles": [
+                    "hc-cld-devops"
+                ],
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Action": [
+                                "iam:PassRole"
+                            ],
+                            "Resource": [
+                                "arn:aws:iam::164996153968:role/*"
+                            ],
+                            "Effect": "Allow",
+                            "Sid": "PassRole"
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "cloudformation:*"
+                            ],
+                            "Resource": "*"
+                        },
+                        {
+                            "Effect": "Deny",
+                            "Action": [
+                                "cloudformation:CancelUpdateStack",
+                                "cloudformation:DeleteStack",
+                                "cloudformation:SetStackPolicy",
+                                "cloudformation:UpdateStack"
+                            ],
+                              "Resource": "arn:aws:cloudformation:us-east-1:164996153968:stack/purple-spider/*",
+                              "Resource": "arn:aws:cloudformation:us-east-1:164996153968:stack/hc-cld*/*"
+                        },
+                        {
+                            "Sid": "EC2",
+                            "Action": [
+                                  "ec2:Describe*",
+                                  "ec2:*Address",
+                                  "ec2:*SecurityGroup",
+                                  "ec2:RunInstances",
+                                  "ec2:*Tags",
+                                  "ec2:AuthorizeSecurityGroupIngress"
+                              ],
+                            "Resource": "*",
+                            "Effect": "Allow"
+                        },
+                        {
+                            "Sid": "DevOpsServices",
+                            "Action": [
+                                  "autoscaling:*",
+                                  "cloudsearch:*",
+                                  "ecr:*",
+                                  "ecs:*",
+                                  "elasticbeanstalk:*",
+                                  "lambda:*",
+                                  "elasticmapreduce:*",
+                                  "kms:List*",
+                                  "kms:Get*",
+                                  "kinesis:*",
+                                  "firehose:*",
+                                  "machinelearning:*",
+                                  "redshift:*",
+                                  "sns:*",
+                                  "sqs:*",
+                                  "ssm",
+                                  "s3:*"
+                            ],
+                            "Resource": "*",
+                            "Effect": "Allow"
+                        },
+                        {
+                            "Sid": "CloudFront",
+                            "Action": [
+                                "cloudfront:Create*",
+                                "cloudfront:Get*",
+                                "cloudfront:List*",
+                                "cloudfront:Update*"
+                            ],
+                            "Resource": "*",
+                            "Effect": "Allow"
+                        },
+                        {
+                            "Sid": "ACM",
+                            "Action": [
+                                "acm:List*",
+                                "acm:Get*",
+                                "acm:Describe*"
+                            ],
+                            "Resource": "*",
+                            "Effect": "Allow"
+                        },
+                        {
+                            "Sid": "IAMReadOnly",
+                            "Action": [
+                                "iam:List*",
+                                "iam:GetRole*"
+                            ],
+                            "Resource": "*",
+                            "Effect": "Allow"
+                        },
+                        {
+                            "Sid":"EBIAM",
+                            "Effect": "Allow",
+                            "Action": [
+                              "iam:AddRoleToInstanceProfile",
+                              "iam:CreateInstanceProfile",
+                              "iam:CreateRole"
+                            ],
+                            "Resource": [
+                                "arn:aws:iam::*:role/aws-elasticbeanstalk*",
+                                "arn:aws:iam::*:instance-profile/aws-elasticbeanstalk*"
+                              ]
+                            },
+                            {
+                              "Effect": "Allow",
+                              "Action": [
+                                "iam:AttachRolePolicy"
+                              ],
+                              "Resource": "*",
+                              "Condition": {
+                                "StringLike": {
+                                  "iam:PolicyArn": [
+                                    "arn:aws:iam::aws:policy/AWSElasticBeanstalk*",
+                                    "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalk*"
+                                  ]
+                                    }
+                                  }
+                            },
+                        {
+                            "Sid": "IAMRoles",
+                            "Action": "iam:PassRole",
+                            "Effect": "Allow",
+                            "Resource": [
+                                "arn:aws:iam::164996153968:role/*elasticbeanstalk*",
+                                "arn:aws:iam::164996153968:role/*ecs*",
+                                "arn:aws:iam::164996153968:role/*ecr*",
+                                "arn:aws:iam::164996153968:role/*Lambda*",
+                                "arn:aws:iam::164996153968:role/*elasticmapreduce*",
+                                "arn:aws:iam::164996153968:role/*redshift*",
+                                "arn:aws:iam::164996153968:role/*kinesis*",
+                                "arn:aws:iam::164996153968:role/*firehose*"
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,44 @@
+{
+      "rc_version": "1.1.0",
+      "autocopy": true,
+      "aws": {
+        "region": "us-east-1",
+        "outputFormat": "json",
+        "credentialsPath": "~/.aws/credentials",
+        "rolesSource": "settings",
+        "useHttpsProxy": true,
+        "refreshMinutes": 10
+      },
+      "idp": {
+        "url": "https://ssousflogin.corporate.ge.com/SSOLogin/verify.fcc",
+        "targetUrl": "https://fssfed.ge.com/fss/idp/startSSO.ping?PartnerSpId=urn:amazon:webservices",
+        "samlResponseVariable": "SAMLResponse",
+        "samlResponseRoleXpath": "//samlp:Response/saml:Assertion/saml:AttributeStatement/saml:Attribute[@Name='https://aws.amazon.com/SAML/Attributes/Role']/saml:AttributeValue",
+        "useHttpsProxy": false,
+        "prompt": {
+          "username": "Your SSO:",
+          "password": "Password:"
+      },
+      "accounts": {
+        "164996153968": "us1n (healthcare-preprod)",
+        "901455435209": "us1p (healthcare-prod)",
+        "574616038232": "eu1p (ent-emea-healthcare)"
+      },
+      "regions": {
+        "123456789015": "eu-west-1"
+      },
+      "plugins": {
+        "cago-custom-idp": "cago-custom-idp@1.0.0 --registry https://my.corp.com/artifactory/api/npm/custom-repo"
+      },
+      "config": {
+        "cago-custom-idp": {
+          "url": "... link to my.corp.com identity solution ...",
+          "targetUrl": "... link to aws to get roles ...",
+          "prompt": {
+            "username": "Acct:",
+            "password": "Pass:"
+          }
+        }
+      }
+    }
+  }

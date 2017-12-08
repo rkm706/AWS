@@ -1,0 +1,21 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "ec2:*SecurityGroup*",
+                "tag:*"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Effect": "Deny",
+            "Condition": {
+                "StringLike": {
+                    "ec2:ResourceTag/restricted": "1"
+                }
+            },
+            "Sid": "ProtectRestricted"
+        }
+    ]
+}

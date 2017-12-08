@@ -1,0 +1,39 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": "ecr:GetAuthorizationToken",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": [
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:BatchGetImage",
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:PutImage",
+                "ecr:InitiateLayerUpload",
+                "ecr:UploadLayerPart",
+                "ecr:CompleteLayerUpload"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:ecr:*:*:repository/reveal*"
+        },
+        {
+            "Action": [
+                "ecs:ListServices",
+                "ecs:ListTasks",
+                "ecs:RunTask",
+                "ecs:StartTask",
+                "ecs:StopTask"
+            ],
+            "Effect": "Allow",
+            "Resource": "*",
+            "Condition": {
+                "ArnLike": {
+                    "ecs:cluster": "arn:aws:ecs:*:*:cluster/reveal*"
+                }
+            }
+        }
+    ]
+}

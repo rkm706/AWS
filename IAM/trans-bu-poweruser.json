@@ -1,0 +1,1009 @@
+Last {"updated May": "17 2016"}
+
+awsiam-sauce-the-sequel
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "ec2:RunInstances"
+            ],
+            "Resource": "arn:aws:ec2:us-east-1::image/ami-*",
+            "Effect": "Deny",
+            "Condition": {
+                "ForAnyValue:StringNotLike": {
+                    "ec2:Owner": [
+                        "amazon",
+                        "aws-marketplace",
+                        "737859062117",
+                        "863559218632",
+                        "048421397550",
+                        "850200683887",
+                        "851093456999",
+                        "201245860548",
+                        "335031091084",
+                        "985992444941",
+                        "207456136159",
+                        "493917785438",
+                        "013571661915",
+                        "991448341389",
+                        "380231558846",
+                        "050055050177",
+                        "574616038232",
+                        "067326537360",
+                        "859502297945",
+                        "322870840626",
+                        "951854665038",
+                        "378058653094",
+                        "164996153968",
+                        "901455435209",
+                        "072123508805",
+                        "170891073593",
+                        "175070699551",
+                        "639624358806",
+                        "713465949176",
+                        "358880727977",
+                        "982273883121",
+                        "699701668959",
+                        "576218560515",
+                        "533600275369",
+                        "652668783151",
+                        "930136447543",
+                        "988201728534",
+                        "658312218119",
+                        "669990426999"
+                    ]
+                }
+            },
+            "Sid": "AllowLaunchOnlyFromApprovedImages"
+        },
+        {
+            "Action": [
+                "ec2:BundleInstance",
+                "ec2:CancelBundleTask",
+                "ec2:MonitorInstances",
+                "ec2:CreatePlacementGroup",
+                "ec2:ModifyInstanceAttribute",
+                "ec2:ReportInstanceStatus",
+                "ec2:RunInstances",
+                "ec2:StartInstances",
+                "ec2:StopInstances",
+                "ec2:TerminateInstances",
+                "ec2:UnmonitorInstances",
+                "ec2:ResetInstanceAttribute",
+                "ec2:DeletePlacementGroup",
+                "ec2:RebootInstances"
+            ],
+            "Resource": [
+                "arn:aws:ec2:us-east-1:658312218119:subnet/subnet-a1ffe7d5",
+                "arn:aws:ec2:us-east-1:658312218119:subnet/subnet-ea2520ac",
+                "arn:aws:ec2:us-east-1:658312218119:subnet/subnet-ec2520aa",
+                "arn:aws:ec2:us-east-1:658312218119:subnet/subnet-a2ffe7d6"
+            ],
+            "Effect": "Deny",
+            "Condition": {
+                "StringLike": {
+                    "ec2:ResourceTag/csadmin": "csadmin",
+                    "ec2:Vpc": "arn:aws:ec2:us-east-1:988201728534:vpc/vpc-b6aafcd2"
+                }
+            },
+            "Sid": "ActionsForInstanceLaunchAndMgmnt"
+        },
+        {
+            "Action": [
+                "ec2:AttachVolume",
+                "ec2:CreateSnapshot",
+                "ec2:CreateVolume",
+                "ec2:DeleteVolume",
+                "ec2:DetachVolume",
+                "ec2:EnableVolumeIo",
+                "ec2:ModifyVolumeAttribute",
+                "ec2:CopySnapshot",
+                "ec2:DeleteSnapshot",
+                "ec2:ModifySnapshotAttribute",
+                "ec2:ResetSnapshotAttribute"
+            ],
+            "Resource": "*",
+            "Effect": "Deny",
+            "Condition": {
+                "StringLike": {
+                    "ec2:ResourceTag/csadmin": "csadmin"
+                }
+            },
+            "Sid": "ProtectCSAdminResources"
+        },
+        {
+            "Action": [
+                "ec2:*SecurityGroup*"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Effect": "Deny",
+            "Condition": {
+                "StringLike": {
+                    "ec2:ResourceTag/aws:cloudformation:stack-name": "purple-spider"
+                }
+            },
+            "Sid": "ProtectPurpleSpider"
+        }
+    ]
+}
+
+awsiam-sauce
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "acm:*",
+                "apigateway:*",
+                "aws-portal:*",
+                "cloudhsm:*",
+                "cloudsearch:*",
+                "codecommit:*",
+                "codepipeline:*",
+                "cognitoidentity:*",
+                "cognito-idp:*",
+                "cognitosync:*",
+                "devicefarm:*",
+                "ds:*",
+                "efs:*",
+                "elastictranscoder:*",
+                "elasticsearch:*",
+                "es:*",
+                "firehose:*",
+                "gamelift:*",
+                "inspector:*",
+                "iot:*",
+                "meteringmarketplace:*",
+                "ses:*",
+                "storagegateway:*",
+                "workspaces:*"
+            ],
+            "Resource": "*",
+            "Effect": "Deny",
+            "Sid": "BlanketDeny"
+        },
+        {
+            "Action": [
+                "appstream:Create*",
+                "appstream:Delete*",
+                "appstream:Update*",
+                "CloudFront:Create*",
+                "CloudFront:Delete*",
+                "CloudFront:Update*",
+                "CloudTrail:CreateTrail",
+                "CloudTrail:DeleteTrail",
+                "CloudTrail:StartTrail",
+                "CloudTrail:StopTrail",
+                "CloudTrail:UpdateTrail",
+                "DirectConntect:Allocate*",
+                "DirectConntect:Confirm*",
+                "DirectConntect:Create*",
+                "DirectConntect:Delete*",
+                "ec2:AcceptVpcPeeringConnection",
+                "ec2:AllocateAddress",
+                "ec2:AllocateHosts",
+                "ec2:AssociateAddress",
+                "ec2:AssociateDhcpOptions",
+                "ec2:AttachClassicLinkVpc",
+                "ec2:AttachInternetGateway",
+                "ec2:AttachVpnGateway",
+                "ec2:CancelReservedInstancesListing",
+                "ec2:CreateCustomerGateway",
+                "ec2:CreateDhcpOptions",
+                "ec2:CreateInternetGateway",
+                "ec2:CreateNatGateway",
+                "ec2:CreateReservedInstancesListing",
+                "ec2:CreateRoute*",
+                "ec2:CreateVp*",
+                "ec2:DeleteCustomerGateway",
+                "ec2:DeleteDhcpOptions",
+                "ec2:DeleteInternetGateway",
+                "ec2:DeleteNatGateway",
+                "ec2:DeleteRoute*",
+                "ec2:DeleteVp*",
+                "ec2:DetachClassicLinkVpc",
+                "ec2:DetachInternetGateway",
+                "ec2:DetachVpnGateway",
+                "ec2:Disable*",
+                "ec2:DisassociateAddress",
+                "ec2:EnableVgwRoutePropagation",
+                "ec2:EnableVpcClassicLink",
+                "ec2:ImportInstance",
+                "ec2:ImportVolume",
+                "ec2:ModifyReservedInstances",
+                "ec2:ModifySubnetAttribute",
+                "ec2:ModifyVpcAttribute",
+                "ec2:PurchaseReservedInstancesOffering",
+                "ec2:PurchaseScheduledInstances",
+                "ec2:RejectVpcPeeringConnection",
+                "ec2:ReleaseAddress",
+                "ec2:ReleaseHosts",
+                "ec2:ReplaceRoute",
+                "ec2:RunScheduledInstances",
+                "ElsaticTranscoder:Cancel*",
+                "ElsaticTranscoder:Create*",
+                "ElsaticTranscoder:Delete*",
+                "ElsaticTranscoder:Test*",
+                "ElsaticTranscoder:Update*",
+                "Route53:AssociateVPCWithHostedZone",
+                "Route53:ChangeResourceRecordSets",
+                "Route53:ChangeTagsForResource",
+                "Route53:Create*",
+                "Route53:Delete*",
+                "Route53:DisassociateVPCFromHostedZone",
+                "Route53:Update*",
+                "Route53Domains:*",
+                "SES:Delete*",
+                "SES:Send*",
+                "SES:SetIdentity*",
+                "SES:Verify*",
+                "StorageGateway:ActivateGateway",
+                "StorageGateway:AddCache",
+                "StorageGateway:AddUploadBuffer",
+                "StorageGateway:AddWorkingStorage",
+                "StorageGateway:Cancel*",
+                "StorageGateway:Create*",
+                "StorageGateway:Delete*",
+                "StorageGateway:DisableGateway",
+                "StorageGateway:ResetCache",
+                "StorageGateway:Retrieve*",
+                "StorageGateway:ShutdownGateway",
+                "StorageGateway:StartGateway",
+                "StorageGateway:Update*",
+                "STS:GetFederationToken",
+                "STS:GetSessionToken"
+            ],
+            "Resource": "*",
+            "Effect": "Deny",
+            "Sid": "TargetedDeny"
+        },
+        {
+            "Action": [
+                "iam:*OpenIdConnect*",
+                "iam:*CreateAccount*",
+                "iam:*DeleteAccount*",
+                "iam:*UpdateAccount*",
+                "iam:*SAMLProvider",
+                "iam:AddUserToGroup",
+                "iam:Attach*Policy",
+                "iam:ChangePassword",
+                "iam:CreateAccessKey",
+                "iam:CreateGroup",
+                "iam:CreateLoginProfile",
+                "iam:CreatePolicy*",
+                "iam:CreateRole",
+                "iam:CreateUser",
+                "iam:CreateVirtualMFADevice",
+                "iam:DeactivateMFADevice",
+                "iam:DeleteAccessKey",
+                "iam:DeleteGroup",
+                "iam:DeleteGroupPolicy",
+                "iam:DeleteInstanceProfile",
+                "iam:DeleteLoginProfile",
+                "iam:DeletePolicy*",
+                "iam:DeleteRole*",
+                "iam:DeleteUser*",
+                "iam:DeleteVirtualMFADevice",
+                "iam:Detach*Policy",
+                "iam:EnableMFADevice",
+                "iam:Put*Policy",
+                "iam:RemoveRoleFromInstanceProfile",
+                "iam:RemoveUserFromGroup",
+                "iam:ResyncMFADevice",
+                "iam:SetDefaultPolicyVersion",
+                "iam:UpdateAccessKey",
+                "iam:UpdateAssumeRolePolicy",
+                "iam:UpdateGroup",
+                "iam:UpdateLoginProfile",
+                "iam:UpdateUser"
+            ],
+            "Resource": "*",
+            "Effect": "Deny",
+            "Sid": "BlanketIAMDeny"
+        },
+        {
+            "Action": [
+                "ec2:AllocateAddress",
+                "ec2:AssociateAddress",
+                "ec2:DisassociateAddress"
+            ],
+            "Resource": "*",
+            "Effect": "Deny",
+            "Sid": "DenyEIPs"
+        }
+    ]
+}
+
+basic-compute-policy
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "BasicReadOnEC2",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:Describe*",
+                "ec2:Get*"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "ActionsOnImages",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateImage",
+                "ec2:RegisterImage",
+                "ec2:CopyImage",
+                "ec2:ResetImageAttribute",
+                "ec2:ModifyImageAttribute",
+                "ec2:DeregisterImage"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "AllowLaunchOnlyFromApprovedImages",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:RunInstances"
+            ],
+            "Resource": [
+                "arn:aws:ec2:us-east-1::image/ami-*"
+            ],
+            "Condition": {
+                "ForAnyValue:StringLike": {
+                    "ec2:Owner": [
+                        "amazon",
+                        "737859062117",
+                        "394136139437",
+                        "851093456999",
+                        "335031091084",
+                        "207456136159",
+                        "028557712108",
+                        "164996153968",
+                        "533600275369",
+                        "930136447543",
+                        "658312218119",
+                        "687831498517",
+                        "201245860548",
+                        "985992444941",
+                        "493917785438",
+                        "378058653094",
+                        "901455435209",
+                        "652668783151",
+                        "988201728534",
+                        "669990426999"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "ActionsForInstanceLaunchAndMgmnt",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:BundleInstance",
+                "ec2:CancelBundleTask",
+                "ec2:MonitorInstances",
+                "ec2:CreatePlacementGroup",
+                "ec2:ModifyInstanceAttribute",
+                "ec2:ReportInstanceStatus",
+                "ec2:RunInstances",
+                "ec2:StartInstances",
+                "ec2:StopInstances",
+                "ec2:TerminateInstances",
+                "ec2:UnmonitorInstances",
+                "ec2:ResetInstanceAttribute",
+                "ec2:DeletePlacementGroup",
+                "ec2:RebootInstances"
+            ],
+            "NotResource": [
+                "arn:aws:ec2:us-east-1:658312218119:subnet/subnet-a1ffe7d5",
+                "arn:aws:ec2:us-east-1:658312218119:subnet/subnet-ea2520ac",
+                "arn:aws:ec2:us-east-1:658312218119:subnet/subnet-ec2520aa",
+                "arn:aws:ec2:us-east-1:658312218119:subnet/subnet-a2ffe7d6"
+            ],
+            "Condition": {
+                "StringNotLike": {
+                    "ec2:ResourceTag/csadmin": "csadmin"
+                }
+            }
+        },
+        {
+            "Sid": "DenyEIPs",
+            "Effect": "Deny",
+            "Action": [
+                "ec2:AllocateAddress",
+                "ec2:AssociateAddress",
+                "ec2:DisassociateAddress"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "ProtectMgmntInstances",
+            "Effect": "Deny",
+            "Action": [
+                "ec2:StopInstances",
+                "ec2:TerminateInstances",
+                "ec2:RebootInstances"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Condition": {
+                "StringLike": {
+                    "ec2:ResourceTag/csadmin": "csadmin"
+                }
+            }
+        },
+        {
+            "Sid": "ActionsOnVolumes",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateVolume",
+                "ec2:EnableVolumeIo",
+                "ec2:AttachVolume",
+                "ec2:DeleteVolume",
+                "ec2:ModifyVolumeAttribute",
+                "ec2:DetachVolume"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Condition": {
+               "StringNotLike": {
+                    "ec2:ResourceTag/csadmin": "csadmin"
+                }
+            }
+        },
+        {
+            "Sid": "ActionsOnKeyPairs",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateKeyPair",
+                "ec2:ImportKeyPair",
+                "ec2:DeleteKeyPair"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "DenyActionsOnSnapshots",
+            "Effect": "Deny",
+            "Action": [
+                "ec2:ResetSnapshotAttribute",
+                "ec2:ModifySnapshotAttribute"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Condition": {
+                "StringLike": {
+                    "ec2:ResourceTag/csadmin": "csadmin"
+                }
+            }
+        },
+        {
+            "Sid": "ActionsOnSnapshots",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateSnapshot",
+                "ec2:CopySnapshot",
+                "ec2:ResetSnapshotAttribute",
+                "ec2:ModifySnapshotAttribute",
+                "ec2:DeleteSnapshot"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Condition": {
+                "StringNotLike": {
+                    "ec2:ResourceTag/csadmin": "csadmin"
+                }
+            }
+        },
+        {
+            "Sid": "ActionsOnSpotRequests",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CancelSpotInstanceRequests",
+                "ec2:DeleteSpotDatafeedSubscription",
+                "ec2:CreateSpotDatafeedSubscription",
+                "ec2:RequestSpotInstances"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "ActionsOnTags",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateTags",
+                "ec2:DeleteTags"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "ActionsOnNetworkInterfaces",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateNetworkInterface",
+                "ec2:AttachNetworkInterface",
+                "ec2:ResetNetworkInterfaceAttribute",
+                "ec2:ModifyNetworkInterfaceAttribute",
+                "ec2:DetachNetworkInterface",
+                "ec2:DeleteNetworkInterface"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "ActionsOnPrivateIPs",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:AssignPrivateIpAddresses",
+                "ec2:UnassignPrivateIpAddresses"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "ActionsOnExportAndConversionTasks",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateInstanceExportTask",
+                "ec2:ConfirmProductInstance",
+                "ec2:CancelExportTask",
+                "ec2:CancelConversionTask"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:*SecurityGroup*"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Condition": {
+                "StringNotLike": {
+                    "ec2:ResourceTag/aws:cloudformation:stack-name": "purple-spider"
+                }
+            }
+        }
+    ]
+}
+
+bu-iam-policy
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "IAMReadOnly",
+            "Effect": "Allow",
+            "Action": [
+                "iam:List*"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "IAMRoles",
+            "Effect": "Allow",
+            "Action": [
+                "iam:CreateRole",
+                "iam:PassRole"
+            ],
+            "Resource": [
+                "arn:aws:iam::658312218119:role/aws-config-service-role",
+                "arn:aws:iam::658312218119:role/CloudFromer*",
+                "arn:aws:iam::658312218119:role/*elasticbeanstalk*",
+                "arn:aws:iam::658312218119:role/*opsworks*",
+                "arn:aws:iam::658312218119:role/ecsInstanceRole"
+            ]
+        }
+    ]
+}
+
+bu-poweruser-policy
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "cloudwatch:*",
+                "cloudfront:*",
+                "autoscaling:*",
+                "sdb:*",
+                "elasticache:*",
+                "s3:*",
+                "glacier:*",
+                "dynamodb:*",
+                "swf:*",
+                "sqs:*",
+                "sns:*",
+                "datapipeline:*",
+                "elasticbeanstalk:*",
+                "dms:*",
+                "kms:*",
+                "ecs:*",
+                "ecr:*",
+                "waf:*"
+            ],
+            "Effect": "Allow",
+            "Resource": "*"
+        }
+    ]
+}
+
+cloudformation-policy
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "cloudformation:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Deny",
+            "Action": [
+                "cloudformation:CancelUpdateStack",
+                "cloudformation:DeleteStack",
+                "cloudformation:SetStackPolicy",
+                "cloudformation:UpdateStack"
+            ],
+            "Resource": "arn:aws:cloudformation:us-east-1:658312218119:stack/purple-spider/*"
+        },
+        {
+            "Sid": "IAMRestrictions",
+            "Effect": "Allow",
+            "Action": "iam:CreateRole",
+            "Resource": "arn:aws:iam::658312218119:role/CloudFormer*"
+        }
+    ]
+}
+
+elasticbeanstalk-IAM-policy
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "iam:CreateInstanceProfile"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:iam::658312218119:instance-profile/bu/*"
+        }
+    ]
+}
+
+flowlogs-policy
+{
+    "Statement": [
+        {
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:Describe*",
+                "logs:FilterLogEvents",
+                "logs:GetLogEvents",
+                "logs:PutLogEvents"
+            ],
+            "Effect": "Allow",
+            "Resource": "*"
+        }
+    ]
+}
+
+load-balancin-admin-policy
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "elasticloadbalancing:ApplySecurityGroupsToLoadBalancer",
+        "elasticloadbalancing:ConfigureHealthCheck",
+        "elasticloadbalancing:CreateAppCookieStickinessPolicy",
+        "elasticloadbalancing:CreateLbCookieStickinessPolicy",
+        "elasticloadbalancing:CreateLoadBalancer",
+        "elasticloadbalancing:CreateLoadBalancerListeners",
+        "elasticloadbalancing:CreateLoadBalancerPolicy",
+        "elasticloadbalancing:DeleteLoadBalancer",
+        "elasticloadbalancing:DeleteLoadBalancerListeners",
+        "elasticloadbalancing:DeleteLoadBalancerPolicy",
+        "elasticloadbalancing:DeregisterInstancesFromLoadBalancer",
+        "elasticloadbalancing:DescribeInstanceHealth",
+        "elasticloadbalancing:DescribeLoadBalancerAttributes",
+        "elasticloadbalancing:DescribeLoadBalancerPolicies",
+        "elasticloadbalancing:DescribeLoadBalancerPolicyTypes",
+        "elasticloadbalancing:DescribeLoadBalancers",
+        "elasticloadbalancing:DetachLoadBalancerFromSubnets",
+        "elasticloadbalancing:DisableAvailabilityZonesForLoadBalancer",
+        "elasticloadbalancing:EnableAvailabilityZonesForLoadBalancer",
+        "elasticloadbalancing:ModifyLoadBalancerAttributes",
+        "elasticloadbalancing:RegisterInstancesWithLoadBalancer",
+        "elasticloadbalancing:SetLoadBalancerListenerSslCertificate",
+        "elasticloadbalancing:SetLoadBalancerPoliciesForBackendServer",
+        "elasticloadbalancing:SetLoadBalancerPoliciesOfListener",
+        "elasticloadbalancing:DescribeTags",
+        "elasticloadbalancing:RemoveTags",
+        "elasticloadbalancing:AddTags"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "*"
+      ]
+    },
+    {
+      "Action": [
+        "elasticloadbalancing:AttachLoadBalancerToSubnets"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "*"
+      ]
+    }
+  ]
+}
+
+opsworks-policy
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Stmt1427807813000",
+            "Effect": "Allow",
+            "Action": [
+                "opsworks:*"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}
+
+pass-role-cloudformer
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iam:PassRole",
+        "iam:ListInstanceProfiles"
+      ],
+      "Resource": "arn:aws:iam::658312218119:role/CloudFormer"
+    }
+  ]
+}
+
+pass-role-dms
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iam:PassRole",
+                "iam:ListInstanceProfiles"
+            ],
+            "Resource": [
+                "arn:aws:iam::658312218119:role/dms-vpc-role",
+                "arn:aws:iam::658312218119:role/dms-cloudwatch-logs-role"
+            ]
+        }
+    ]
+}
+
+pass-role-ReadOnly
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iam:PassRole",
+        "iam:ListInstanceProfiles"
+      ],
+      "Resource": "arn:aws:iam::658312218119:role/ReadOnly"
+    }
+  ]
+}
+
+read-all-policy
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Resource": "*",
+      "Action": [
+        "appstream:Get*",
+        "autoscaling:Describe*",
+        "cloudformation:DescribeStacks",
+        "cloudformation:DescribeStackEvents",
+        "cloudformation:DescribeStackResources",
+        "cloudformation:GetTemplate",
+        "cloudformation:List*",
+        "cloudfront:Get*",
+        "cloudfront:List*",
+        "cloudtrail:DescribeTrails",
+        "cloudtrail:GetTrailStatus",
+        "cloudtrail:LookupEvents",
+        "cloudwatch:Describe*",
+        "cloudwatch:Get*",
+        "cloudwatch:List*",
+        "directconnect:Describe*",
+        "dynamodb:GetItem",
+        "dynamodb:BatchGetItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:DescribeTable",
+        "dynamodb:ListTables",
+        "ec2:Describe*",
+        "elasticache:Describe*",
+        "elasticbeanstalk:Check*",
+        "elasticbeanstalk:Describe*",
+        "elasticbeanstalk:List*",
+        "elasticbeanstalk:RequestEnvironmentInfo",
+        "elasticbeanstalk:RetrieveEnvironmentInfo",
+        "elasticloadbalancing:Describe*",
+        "elastictranscoder:Read*",
+        "elastictranscoder:List*",
+        "iam:List*",
+        "iam:Get*",
+        "opsworks:Describe*",
+        "opsworks:Get*",
+        "route53:Get*",
+        "route53:List*",
+        "redshift:Describe*",
+        "redshift:ViewQueriesInConsole",
+        "rds:Describe*",
+        "rds:ListTagsForResource",
+        "s3:Get*",
+        "s3:List*",
+        "sdb:GetAttributes",
+        "sdb:List*",
+        "sdb:DomainMetadata",
+        "sdb:Select*",
+        "ses:Get*",
+        "ses:List*",
+        "sns:Get*",
+        "sns:List*",
+        "sqs:GetQueueAttributes",
+        "sqs:ListQueues",
+        "sqs:ReceiveMessage",
+        "storagegateway:List*",
+        "storagegateway:Describe*"
+      ]
+    }
+  ]
+}
+
+redshift-dba-policy
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "redshift:*",
+        "ec2:DescribeAccountAttributes",
+        "ec2:DescribeAddresses",
+        "ec2:DescribeAvailabilityZones",
+        "ec2:DescribeSecurityGroups",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeVpcs",
+        "ec2:DescribeInternetGateways",
+        "sns:CreateTopic",
+        "sns:Get*",
+        "sns:List*",
+        "cloudwatch:Describe*",
+        "cloudwatch:Get*",
+        "cloudwatch:List*",
+        "cloudwatch:PutMetricAlarm",
+        "cloudwatch:EnableAlarmActions",
+        "cloudwatch:DisableAlarmActions"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
+
+relational-dba-policy
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "rds:*",
+        "ec2:DescribeAvailabilityZones",
+        "ec2:DescribeVpcs",
+        "cloudwatch:GetMetricStatistics",
+        "cloudwatch:DescribeAlarms",
+        "sns:ListTopics",
+        "sns:ListSubscriptions"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
+
+support-access-policy
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "support:*"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+
+trusted-advisor-policy
+{
+  "Statement": [
+    {
+      "Sid": "TrustedAdvisorAccess",
+      "Action": "trustedadvisor:*",
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
+
+mapreduce-policy
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": "elasticmapreduce:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        }
+    ]
+}
+
+Eric D. McKee
+Cloud Enterprise Architect
+Information Technology
+GE Transportation
+
+T +1 734 727 2223
+M +1 734 377 6022
+eric.mckee@ge.com
+www.ge.com
+
+1 Village Center Drive
+Van Buren Charter Township, MI 48111-5711
+General Electric Company
+
+GE imagination at work
+ 

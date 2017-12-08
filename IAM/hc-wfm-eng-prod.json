@@ -1,0 +1,80 @@
+{
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Resources": {
+		"ReadRole": {
+			"Type": "AWS::IAM::Role",
+			"Properties": {
+				"RoleName": "hc-wfm-eng",
+				"Path": "/hc/",
+				"AssumeRolePolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [{
+					  "Sid": "",
+					  "Effect": "Allow",
+					  "Principal": {
+					  "AWS": "arn:aws:iam::839933357981:root"
+					},
+					  "Action": "sts:AssumeRole"
+					},{
+						"Sid": "",
+						"Effect": "Allow",
+						"Principal": {
+							"Federated": "arn:aws:iam::901455435209:saml-provider/ge-saml-for-aws"
+						},
+						"Action": "sts:AssumeRoleWithSAML",
+						"Condition": {
+							"StringEquals": {
+								"SAML:aud": "https://signin.aws.amazon.com/saml"
+							}
+						}
+					}]
+				},
+				"ManagedPolicyArns": ["arn:aws:iam::901455435209:policy/cs/awsiam-sauce",
+					"arn:aws:iam::901455435209:policy/cs/awsiam-sauce-the-sequel"
+				]
+			}
+		},
+		"RolePolicies": {
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "hc-wfm-eng-policy",
+				"Roles": ["hc-wfm-eng"],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [{
+						"Action": ["iam:PassRole"],
+						"Resource": ["arn:aws:iam::901455435209:role/*"],
+						"Effect": "Allow",
+						"Sid": "PassRole"
+					},
+									{
+											"Sid": "S3ConsoleAccess",
+											"Effect": "Allow",
+											"Action": [
+													"s3:ListAllMyBuckets",
+													"s3:GetBucketLocation"
+											],
+											"Resource": "*"
+									},
+									{
+					            "Sid": "ListObjectsinBucket",
+					            "Effect": "Allow",
+					            "Action": "s3:ListBucket",
+					            "Resource": "arn:aws:s3:::gehc-wfm-engineering-storage"
+					        },
+					        {
+					            "Sid": "ReadWriteDeleteObjects",
+					            "Effect": "Allow",
+					            "Action": [
+					                "s3:PutObject",
+					                "s3:GetObject",
+													"s3:DeleteObject"
+					            ],
+					            "Resource": "arn:aws:s3:::gehc-wfm-engineering-storage/*"
+					        }
+					    ]
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,103 @@
+{
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Resources": {
+		"ReadRole": {
+			"Type": "AWS::IAM::Role",
+			"Properties": {
+				"RoleName": "hc-ls-dhadm",
+				"Path": "/hc/",
+				"AssumeRolePolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [{
+					  "Sid": "",
+					  "Effect": "Allow",
+					  "Principal": {
+					  "AWS": "arn:aws:iam::839933357981:root"
+					},
+					  "Action": "sts:AssumeRole"
+					},{
+						"Sid": "",
+						"Effect": "Allow",
+						"Principal": {
+							"Federated": "arn:aws:iam::164996153968:saml-provider/ge-saml-for-aws"
+						},
+						"Action": "sts:AssumeRoleWithSAML",
+						"Condition": {
+							"StringEquals": {
+								"SAML:aud": "https://signin.aws.amazon.com/saml"
+							}
+						}
+					}]
+				},
+				"ManagedPolicyArns": ["arn:aws:iam::164996153968:policy/cs/awsiam-sauce",
+					"arn:aws:iam::164996153968:policy/cs/awsiam-sauce-the-sequel"
+				]
+			}
+		},
+		"RolePolicies": {
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "hc-ls-dhadm-policy",
+				"Roles": ["hc-ls-dhadm"],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [{
+						"Action": ["iam:PassRole"],
+						"Resource": ["arn:aws:iam::164996153968:role/app/*"],
+						"Effect": "Allow",
+						"Sid": "PassRole"
+					},
+						{
+						"Effect" : "Deny",
+						"Action" :
+							[
+							"ec2:CreateTags",
+							"ec2:DeleteTags"
+							],
+						"Resource" : "*"
+						},
+						{
+						"Effect" : "Allow",
+						"Action" : "ec2:Describe*",
+						"Resource" : "*"
+						},
+						{
+						"Effect" : "Allow",
+						"Action" : "ec2:*",
+						"Resource" : "*",
+						"Condition" : {
+							"StringEquals" : {
+								"ec2:ResourceTag/uai" : ["UAI2000338", "UAI2000819"]
+								}
+							}
+						},
+						{
+						"Effect" : "Deny",
+						"Action" :
+							[
+							"autoscaling:CreateOrUpdateTags",
+							"autoscaling:DeleteTags"
+							],
+						"Resource" : "*"
+						},
+						{
+						"Effect" : "Allow",
+						"Action" : "autoscaling:Describe*",
+						"Resource" : "*"
+					  },
+						{
+						"Effect" : "Allow",
+						"Action" : "autoscaling:*",
+						"Resource" : "*",
+						"Condition" : {
+							"StringEquals" : {
+								"autoscaling:ResourceTag/uai" : ["UAI2000338", "UAI2000819"]
+								}
+						}
+						}
+					]
+				}
+			}
+		}
+	}
+}

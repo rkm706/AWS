@@ -1,0 +1,95 @@
+{
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Resources": {
+		"OPSRole": {
+			"Type": "AWS::IAM::Role",
+			"Properties": {
+				"RoleName": "hc-cldops",
+				"Path": "/hc/",
+				"AssumeRolePolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [{
+						"Sid": "",
+						"Effect": "Allow",
+						"Principal": {
+							"Federated": "arn:aws:iam::164996153968:saml-provider/ge-saml-for-aws"
+						},
+						"Action": "sts:AssumeRoleWithSAML",
+						"Condition": {
+							"StringEquals": {
+								"SAML:aud": "https://signin.aws.amazon.com/saml"
+							}
+						}
+					}]
+				},
+				"ManagedPolicyArns": ["arn:aws:iam::164996153968:policy/cs/awsiam-sauce",
+					"arn:aws:iam::164996153968:policy/cs/awsiam-sauce-the-sequel"
+				]
+			}
+		},
+		"RolePolicies": {
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "hc-cldops-policy",
+				"Roles": ["hc-cldops"],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [{
+						"Action": ["iam:PassRole"],
+						"Resource": ["arn:aws:iam::164996153968:role/app/*"],
+						"Effect": "Allow",
+						"Sid": "PassRole"
+					}, {
+						"Action": [
+							"ec2:*",
+							"apigateway:*",
+							"cloudwatch:*",
+							"autoscaling:*",
+							"sdb:*",
+							"elasticache:*",
+							"elasticfilesystem:*",
+              "iam:List*",
+              "iam:Get*",
+							"iam:PassRole",
+							"s3:*",
+							"glacier:*",
+							"dynamodb:*",
+							"swf:*",
+							"sqs:*",
+							"sns:*",
+							"datapipeline:*",
+							"elasticbeanstalk:*",
+							"config:*",
+							"tag:*",
+							"cloudformation:*",
+							"rds:*",
+							"dms:*",
+							"redshift:*",
+							"kms:*",
+							"lambda:*",
+							"logs:*",
+							"elasticloadbalancing:*",
+							"ecs:*",
+							"codedeploy:*",
+							"machinelearning:*",
+							"elasticmapreduce:*",
+							"support:*",
+							"trustedadvisor:*",
+							"cloudfront:*",
+							"waf:*",
+							"cloudtrail:*",
+							"events:*",
+							"inspector:*",
+							"aws-marketplace:*",
+							"sts:DecodeAuthorizationMessage",
+							"application-autoscaling:*",
+							"importexport:*"
+						],
+						"Resource": "*",
+						"Effect": "Allow"
+					}]
+				}
+			}
+		}
+	}
+}

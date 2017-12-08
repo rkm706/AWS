@@ -1,0 +1,19 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Stmt1468953396000",
+            "Effect": "Allow",
+            "Action": [
+                "s3:List*",
+                "s3:Put*",
+                "s3:Get*",
+                "s3:DeleteObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::gehc-ls-xcarrier-dev/*",
+                "arn:aws:s3:::gehc-ls-xcarrier-dev"
+            ]
+        }
+    ]
+}

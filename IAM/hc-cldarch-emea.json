@@ -1,0 +1,188 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Resources": {
+        "ReadRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "RoleName": "hc-cldarch",
+                "Path": "/hc/",
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Sid": "",
+                            "Effect": "Allow",
+                            "Principal": {
+                                "AWS": "arn:aws:iam::839933357981:root"
+                            },
+                            "Action": "sts:AssumeRole"
+                        },
+                        {
+                            "Sid": "",
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Federated": "arn:aws:iam::574616038232:saml-provider/ge-saml-for-aws"
+                            },
+                            "Action": "sts:AssumeRoleWithSAML",
+                            "Condition": {
+                                "StringEquals": {
+                                    "SAML:aud": "https://signin.aws.amazon.com/saml"
+                                }
+                            }
+                        }
+                    ]
+                },
+                "ManagedPolicyArns": [
+                    "arn:aws:iam::574616038232:policy/cs/awsiam-sauce",
+                    "arn:aws:iam::574616038232:policy/cs/awsiam-sauce-the-sequel"
+                ]
+            }
+        },
+        "RolePolicies": {
+            "Type": "AWS::IAM::Policy",
+            "Properties": {
+                "PolicyName": "hc-cldarch-policy",
+                "Roles": [
+                    "hc-cldarch"
+                ],
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Action": [
+                                "iam:PassRole"
+                            ],
+                            "Resource": [
+                                "arn:aws:iam::574616038232:role/app/*"
+                            ],
+                            "Effect": "Allow",
+                            "Sid": "PassRole"
+                        },
+                        {
+                            "Sid": "CldArchServices",
+                            "Action": [
+                              "apigateway:*",
+                              "artifact:*",
+                              "autoscaling:*",
+                              "aws-marketplace:*",
+                              "cloudfront:*",
+                              "cloudtrail:*",
+                              "cloudwatch:*",
+                              "datapipeline:*",
+                              "dynamodb:*",
+                              "dms:*",
+                              "events:*",
+                              "ecs:*",
+                              "ecr:*",
+                              "ec2:*",
+                              "elasticfilesystem:*",
+                              "elasticbeanstalk:*",
+                              "elasticloadbalancing:*",
+                              "glacier:*",
+                              "importexport:*",
+                              "kms:*",
+                              "lambda:*",
+                              "logs:*",
+                              "rds:*",
+                              "s3:*",
+                              "sns:*",
+                              "snowball:*",
+                              "sqs:*",
+                              "sts:*",
+                              "support:*",
+                              "trustedadvisor:*"
+                            ],
+                            "Resource": "*",
+                            "Effect": "Allow"
+                        },
+                        {
+                            "Effect": "Deny",
+                            "Action": [
+                                "lambda:Delete*",
+                                "elasticbeanstalk:Delete*",
+                                "elasticbeanstalk:Terminate*",
+                                "ecs:Delete*",
+                                "ecr:Delete*"
+                            ],
+                              "Resource": "*"
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "cloudformation:*"
+                            ],
+                            "Resource": "*"
+                        },
+                        {
+                            "Effect": "Deny",
+                            "Action": [
+                                "cloudformation:CancelUpdateStack",
+                                "cloudformation:DeleteStack",
+                                "cloudformation:SetStackPolicy",
+                                "cloudformation:UpdateStack"
+                            ],
+                              "Resource": "arn:aws:cloudformation:us-east-1:574616038232:stack/purple-spider/*",
+                              "Resource": "arn:aws:cloudformation:us-east-1:574616038232:stack/hc-cld*/*"
+                        },
+                        {
+                            "Sid": "CERTS",
+                            "Action": [
+                                "iam:*certificate*",
+                                "acm:AddTagsToCertificate",
+                                "acm:DescribeCertificate",
+                                "acm:GetCertificate",
+                                "acm:ImportCertificate",
+                                "acm:ListCertificates",
+                                "acm:ListTagsForCertificate",
+                                "acm:RemoveTagsFromCertificate",
+                                "elb:SetLoadBalancerPoliciesOfListener",
+                                "elb:SetLoadBalancerListenerSSLCertificate"
+                            ],
+                            "Resource": "*",
+                            "Effect": "Allow"
+                        },
+                        {
+                            "Sid": "IAMReadOnly",
+                            "Action": [
+                                "iam:List*",
+                                "iam:GetRole*",
+                                "iam:AttachRolePolicy*",
+                                "iam:PassRole*"
+                            ],
+                            "Resource": "*",
+                            "Effect": "Allow"
+                        },
+                        {
+                            "Sid":"EBIAM",
+                            "Action": [
+                              "iam:AddRoleToInstanceProfile",
+                              "iam:CreateInstanceProfile",
+                              "iam:CreateRole"
+                            ],
+                            "Effect": "Allow",
+                            "Resource": [
+                                "arn:aws:iam::*:role/aws-elasticbeanstalk*",
+                                "arn:aws:iam::*:instance-profile/aws-elasticbeanstalk*"
+                              ]
+                            },
+                            {
+                              "Action": [
+                                "iam:AttachRolePolicy"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": "*",
+                              "Condition": {
+                                "StringLike": {
+                                  "iam:PolicyArn": [
+                                    "arn:aws:iam::aws:policy/AWSElasticBeanstalk*",
+                                    "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalk*"
+                                  ]
+                            }
+            }
+        }
+                    ]
+                }
+            }
+        }
+    }
+}

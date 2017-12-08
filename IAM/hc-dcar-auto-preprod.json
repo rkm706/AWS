@@ -1,0 +1,79 @@
+{
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Resources": {
+		"ReadRole": {
+			"Type": "AWS::IAM::Role",
+			"Properties": {
+				"RoleName": "hc-dcar-auto",
+				"Path": "/hc/",
+				"AssumeRolePolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [{
+					  "Sid": "",
+					  "Effect": "Allow",
+					  "Principal": {
+					  "AWS": "arn:aws:iam::839933357981:root"
+					},
+					  "Action": "sts:AssumeRole"
+					},{
+						"Sid": "",
+						"Effect": "Allow",
+						"Principal": {
+							"Federated": "arn:aws:iam::164996153968:saml-provider/ge-saml-for-aws"
+						},
+						"Action": "sts:AssumeRoleWithSAML",
+						"Condition": {
+							"StringEquals": {
+								"SAML:aud": "https://signin.aws.amazon.com/saml"
+							}
+						}
+					}]
+				},
+				"ManagedPolicyArns": ["arn:aws:iam::164996153968:policy/cs/awsiam-sauce",
+					"arn:aws:iam::164996153968:policy/cs/awsiam-sauce-the-sequel"
+				]
+			}
+		},
+		"RolePolicies": {
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "hc-dcar-auto-policy",
+				"Roles": ["hc-dcar-auto"],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [{
+						"Action": ["iam:PassRole"],
+						"Resource": ["arn:aws:iam::164996153968:role/app/*"],
+						"Effect": "Allow",
+						"Sid": "PassRole"
+					},
+					{
+					  "Action": [
+								"ec2:DescribeSpotInstanceRequests",
+								"ec2:CancelSpotInstanceRequests",
+								"ec2:GetConsoleOutput",
+								"ec2:RequestSpotInstances",
+								"ec2:RunInstances",
+								"ec2:StartInstances",
+								"ec2:StopInstances",
+								"ec2:TerminateInstances",
+								"ec2:CreateTags",
+								"ec2:DeleteTags",
+								"ec2:DescribeInstances",
+								"ec2:DescribeKeyPairs",
+								"ec2:DescribeRegions",
+								"ec2:DescribeImages",
+								"ec2:DescribeAvailabilityZones",
+								"ec2:DescribeSecurityGroups",
+								"ec2:DescribeSubnets"
+					   ],
+					  "Effect": "Allow",
+						"Resource": "*"
+					}
+					]
+				}
+			}
+		},
+		"DependsOn" : "ReadRole"
+	}
+}

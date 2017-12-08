@@ -1,0 +1,221 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Resources": {
+        "DevOpsRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "RoleName": "hc-cld-devops",
+                "Path": "/hc/",
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Sid": "",
+                            "Effect": "Allow",
+                            "Principal": {
+                                "AWS": "arn:aws:iam::839933357981:root"
+                            },
+                            "Action": "sts:AssumeRole"
+                        },
+                        {
+                            "Sid": "",
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Federated": "arn:aws:iam::574616038232:saml-provider/ge-saml-for-aws"
+                            },
+                            "Action": "sts:AssumeRoleWithSAML",
+                            "Condition": {
+                                "StringEquals": {
+                                    "SAML:aud": "https://signin.aws.amazon.com/saml"
+                                }
+                            }
+                        }
+                    ]
+                },
+                "ManagedPolicyArns": [
+                    "arn:aws:iam::574616038232:policy/cs/awsiam-sauce",
+                    "arn:aws:iam::574616038232:policy/cs/awsiam-sauce-the-sequel"
+                ]
+            }
+        },
+        "RolePolicies": {
+            "Type": "AWS::IAM::Policy",
+            "Properties": {
+                "PolicyName": "hc-cld-devops-policy",
+                "Roles": [
+                    "hc-cld-devops"
+                ],
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Action": [
+                                "iam:PassRole"
+                            ],
+                            "Resource": [
+                                "arn:aws:iam::574616038232:role/app/*"
+                            ],
+                            "Effect": "Allow",
+                            "Sid": "PassRole"
+                        },
+                        {
+                            "Sid": "EB",
+                            "Action": [
+                                "elasticbeanstalk:CheckDNSAvailability",
+                                "elasticbeanstalk:CreateApplication",
+                                "elasticbeanstalk:CreateApplicationVersion",
+                                "elasticbeanstalk:CreateConfigurationTemplate",
+                                "elasticbeanstalk:CreateEnvironment",
+                                "elasticbeanstalk:CreateStorageLocation",
+                                "elasticbeanstalk:DeleteApplication",
+                                "elasticbeanstalk:DeleteApplicationVersion",
+                                "elasticbeanstalk:DeleteConfigurationTemplate",
+                                "elasticbeanstalk:DeleteEnvironmentConfiguration",
+                                "elasticbeanstalk:DescribeApplicationVersions",
+                                "elasticbeanstalk:DescribeApplications",
+                                "elasticbeanstalk:DescribeConfigurationOptions",
+                                "elasticbeanstalk:DescribeConfigurationSettings",
+                                "elasticbeanstalk:DescribeEnvironmentHealth",
+                                "elasticbeanstalk:DescribeEnvironmentResources",
+                                "elasticbeanstalk:DescribeEnvironments",
+                                "elasticbeanstalk:DescribeEvents",
+                                "elasticbeanstalk:DescribeInstancesHealth",
+                                "elasticbeanstalk:ListAvailableSolutionStacks",
+                                "elasticbeanstalk:RebuildEnvironment",
+                                "elasticbeanstalk:RequestEnvironmentInfo",
+                                "elasticbeanstalk:RestartAppServer",
+                                "elasticbeanstalk:RetrieveEnvironmentInfo",
+                                "elasticbeanstalk:SwapEnvironmentCNAMEs",
+                                "elasticbeanstalk:TerminateEnvironment",
+                                "elasticbeanstalk:UpdateApplication",
+                                "elasticbeanstalk:UpdateApplicationVersion",
+                                "elasticbeanstalk:UpdateConfigurationTemplate",
+                                "elasticbeanstalk:UpdateEnvironment",
+                                "elasticbeanstalk:ValidateConfigurationSettings"
+                            ],
+                            "Resource": "*",
+                            "Effect": "Allow"
+                        },
+                        {
+                            "Sid": "Lambda",
+                            "Action": [
+                                "lambda:AddPermission",
+                                "lambda:CreateAlias",
+                                "lambda:CreateEventSourceMapping",
+                                "lambda:CreateFunction",
+                                "lambda:DeleteAlias",
+                                "lambda:DeleteEventSourceMapping",
+                                "lambda:DeleteFunction",
+                                "lambda:GetAlias",
+                                "lambda:GetEventSourceMapping",
+                                "lambda:GetFunction",
+                                "lambda:GetFunctionConfiguration",
+                                "lambda:GetPolicy",
+                                "lambda:InvokeAsync",
+                                "lambda:InvokeFunction",
+                                "lambda:ListAliases",
+                                "lambda:ListEventSourceMappings",
+                                "lambda:ListFunctions",
+                                "lambda:ListVersionsByFunction",
+                                "lambda:PublishVersion",
+                                "lambda:RemovePermission",
+                                "lambda:UpdateAlias",
+                                "lambda:UpdateEventSourceMapping",
+                                "lambda:UpdateFunctionCode",
+                                "lambda:UpdateFunctionConfiguration"
+                            ],
+                            "Resource": "*",
+                            "Effect": "Allow"
+                        },
+                        {
+                            "Sid": "SNS",
+                            "Action": [
+                                "sns:AddPermission",
+                                "sns:CheckIfPhoneNumberIsOptedOut",
+                                "sns:ConfirmSubscription",
+                                "sns:Create*",
+                                "sns:Get*",
+                                "sns:List*",
+                                "sns:OptInPhoneNumber",
+                                "sns:Publish",
+                                "sns:RemovePermission",
+                                "sns:SetEndpointAttributes",
+                                "sns:SetPlatformApplicationAttributes",
+                                "sns:SetSMSAttributes",
+                                "sns:SetSubscriptionAttributes",
+                                "sns:SetTopicAttributes",
+                                "sns:Subscribe",
+                                "sns:Unsubscribe"
+                            ],
+                            "Resource": "*",
+                            "Effect": "Allow"
+                        },
+                        {
+                            "Sid": "SQS",
+                            "Action": [
+                                "sqs:AddPermission",
+                                "sqs:ChangeMessageVisibility",
+                                "sqs:ChangeMessageVisibilityBatch",
+                                "sqs:CreateQueue",
+                                "sqs:GetQueueAttributes",
+                                "sqs:GetQueueUrl",
+                                "sqs:ListDeadLetterSourceQueues",
+                                "sqs:ListQueues",
+                                "sqs:PurgeQueue",
+                                "sqs:ReceiveMessage",
+                                "sqs:RemovePermission",
+                                "sqs:SendMessage",
+                                "sqs:SendMessageBatch",
+                                "sqs:SetQueueAttributes"
+                            ],
+                            "Resource": "*",
+                            "Effect": "Allow"
+                        },
+                        {
+                            "Sid": "S3",
+                            "Action": [
+                                "s3:Create*",
+                                "s3:Get*",
+                                "s3:List*",
+                                "s3:Put*"
+                            ],
+                            "Resource": "*",
+                            "Effect": "Allow"
+                        },
+                        {
+                            "Sid": "CloudFront",
+                            "Action": [
+                                "cloudfront:Create*",
+                                "cloudfront:Get*",
+                                "cloudfront:List*",
+                                "cloudfront:Update*"
+                            ],
+                            "Resource": "*",
+                            "Effect": "Allow"
+                        },
+                        {
+                            "Sid": "IAMReadOnly",
+                            "Action": [
+                                "iam:List*"
+                            ],
+                            "Resource": "*",
+                            "Effect": "Allow"
+                        },
+                        {
+                            "Sid": "IAMRoles",
+                            "Action": [
+                                "iam:CreateRole",
+                                "iam:PassRole"
+                            ],
+                            "Resource": [
+                                "arn:aws:iam::574616038232:role/*elasticbeanstalk*",
+                                "arn:aws:iam::574616038232:role/*lambda*"
+                            ],
+                            "Effect": "Allow"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

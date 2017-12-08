@@ -1,0 +1,17 @@
+{
+   "Version": "2012-10-17",
+   "Statement": [
+         {
+               "Sid": "Allow only requests that use Authorization header for request authentication. Deny POST or presigned URL requests.",
+               "Effect": "Deny",
+               "Principal": "*",
+               "Action": "s3:*",
+               "Resource": "arn:aws:s3:::examplebucket3/*",
+               "Condition": {
+                     "StringNotEquals": {
+                           "s3:x-amz-content-sha256": "UNSIGNED-PAYLOAD"
+                     }
+               }
+         }
+   ]
+}

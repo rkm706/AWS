@@ -1,0 +1,74 @@
+{
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Resources": {
+		"ReadRole": {
+			"Type": "AWS::IAM::Role",
+			"Properties": {
+				"RoleName": "hc-aegis-boomi",
+				"Path": "/hc/",
+				"AssumeRolePolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [{
+					  "Sid": "",
+					  "Effect": "Allow",
+					  "Principal": {
+					  "AWS": "arn:aws:iam::839933357981:root"
+					},
+					  "Action": "sts:AssumeRole"
+					},{
+						"Sid": "",
+						"Effect": "Allow",
+						"Principal": {
+							"Federated": "arn:aws:iam::901455435209:saml-provider/ge-saml-for-aws"
+						},
+						"Action": "sts:AssumeRoleWithSAML",
+						"Condition": {
+							"StringEquals": {
+								"SAML:aud": "https://signin.aws.amazon.com/saml"
+							}
+						}
+					}]
+				},
+				"ManagedPolicyArns": ["arn:aws:iam::901455435209:policy/cs/awsiam-sauce",
+					"arn:aws:iam::901455435209:policy/cs/awsiam-sauce-the-sequel"
+				]
+			}
+		},
+		"RolePolicies": {
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "hc-aegis-boomi-policy",
+				"Roles": ["hc-aegis-boomi"],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [{
+						"Action": ["iam:PassRole"],
+						"Resource": ["arn:aws:iam::901455435209:role/app/*"],
+						"Effect": "Allow",
+						"Sid": "PassRole"
+					},
+									{
+					            "Sid": "ListBucketObjects",
+					            "Effect": "Allow",
+					            "Action": [
+												     "s3:ListBucket",
+											       "s3:GetBucketLocation"
+												],
+					            "Resource": "arn:aws:s3:::gehc-aegis-boomi"
+					        },
+					        {
+					            "Sid": "FullAccesstoObjectsinBucket",
+					            "Effect": "Allow",
+					            "Action": [
+															"s3:PutObject*",
+															"s3:GetObject*",
+															"s3:DeleteObject*"
+												],
+					            "Resource": "arn:aws:s3:::gehc-aegis-boomi/*"
+					        }
+					    ]
+				}
+			}
+		}
+	}
+}

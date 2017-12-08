@@ -1,0 +1,123 @@
+{
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Resources": {
+		"DevOpsRole": {
+			"Type": "AWS::IAM::Role",
+			"Properties": {
+				"RoleName": "hc-clddevops",
+				"Path": "/hc/",
+				"AssumeRolePolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+					        "Sid": "",
+					        "Effect": "Allow",
+					        "Principal": {
+					          "AWS": "arn:aws:iam::839933357981:root"
+					        },
+						"Action": "sts:AssumeRole"
+						},
+						{
+						"Sid": "",
+						"Effect": "Allow",
+						"Principal": {
+							"Federated": "arn:aws:iam::901455435209:saml-provider/ge-saml-for-aws"
+						},
+						"Action": "sts:AssumeRoleWithSAML",
+						"Condition": {
+							"StringEquals": {
+								"SAML:aud": "https://signin.aws.amazon.com/saml"
+							}
+						}
+					}]
+				},
+				"ManagedPolicyArns": ["arn:aws:iam::901455435209:policy/cs/awsiam-sauce",
+					"arn:aws:iam::901455435209:policy/cs/awsiam-sauce-the-sequel"
+				]
+			}
+		},
+		"RolePolicies": {
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "hc-clddevops-policy",
+				"Roles": ["hc-clddevops"],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [{
+						"Action": ["iam:PassRole"],
+						"Resource": ["arn:aws:iam::901455435209:role/app/*"],
+						"Effect": "Allow",
+						"Sid": "PassRole"
+					},
+					{
+				                "Sid": "SNS",
+						"Action": [
+							"sns:AddPermission",
+							"sns:CheckIfPhoneNumberIsOptedOut",
+							"sns:ConfirmSubscription",
+							"sns:Create*",
+							"sns:Get*",
+							"sns:List*",
+							"sns:OptInPhoneNumber",
+							"sns:Publish",
+							"sns:RemovePermission",
+							"sns:SetEndpointAttributes",
+							"sns:SetPlatformApplicationAttributes",
+							"sns:SetSMSAttributes",
+							"sns:SetSubscriptionAttributes",
+							"sns:SetTopicAttributes",
+							"sns:Subscribe",
+							"sns:Unsubscribe"
+						],
+						  "Resource": "*",
+						  "Effect": "Allow"
+					},
+					{
+           				        "Sid": "SQS",
+						"Action": [
+							"sqs:AddPermission",
+							"sqs:ChangeMessageVisibility",
+							"sqs:ChangeMessageVisibilityBatch",
+							"sqs:CreateQueue",
+							"sqs:GetQueueAttributes",
+							"sqs:GetQueueUrl",
+							"sqs:ListDeadLetterSourceQueues",
+							"sqs:ListQueues",
+							"sqs:PurgeQueue",
+							"sqs:ReceiveMessage",
+							"sqs:RemovePermission",
+							"sqs:SendMessage",
+							"sqs:SendMessageBatch",
+							"sqs:SetQueueAttributes"
+						],
+					        "Resource": "*",
+					        "Effect": "Allow"
+					},
+					{
+           					"Sid": "S3",
+						"Action": [
+							"s3:Create*",
+							"s3:Get*",
+							"s3:List*",
+							"s3:Put*"
+						],
+					        "Resource": "*",
+					        "Effect": "Allow"
+					},
+					{
+           				        "Sid": "CloudFront",
+						"Action": [
+							"cloudfront:Create*",
+							"cloudfront:Get*",
+							"cloudfront:List*",
+							"cloudfront:Update*"
+						],
+						"Resource": "*",
+					        "Effect": "Allow"
+					}
+					]
+				}
+			}
+		}
+	}
+}

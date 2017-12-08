@@ -1,0 +1,72 @@
+{
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Resources": {
+		"ReadRole": {
+			"Type": "AWS::IAM::Role",
+			"Properties": {
+				"RoleName": "hc-cldread",
+				"Path": "/hc/",
+				"AssumeRolePolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [{
+					  "Sid": "",
+					  "Effect": "Allow",
+					  "Principal": {
+					  "AWS": "arn:aws:iam::839933357981:root"
+					},
+					  "Action": "sts:AssumeRole"
+					},{
+						"Sid": "",
+						"Effect": "Allow",
+						"Principal": {
+							"Federated": "arn:aws:iam::164996153968:saml-provider/ge-saml-for-aws"
+						},
+						"Action": "sts:AssumeRoleWithSAML",
+						"Condition": {
+							"StringEquals": {
+								"SAML:aud": "https://signin.aws.amazon.com/saml"
+							}
+						}
+					}]
+				},
+				"ManagedPolicyArns": ["arn:aws:iam::164996153968:policy/cs/awsiam-sauce",
+					"arn:aws:iam::164996153968:policy/cs/awsiam-sauce-the-sequel"
+				]
+			}
+		},
+		"RolePolicies": {
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "hc-cldread-policy",
+				"Roles": ["hc-cldread"],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [{
+						"Action": ["iam:PassRole"],
+						"Resource": ["arn:aws:iam::164996153968:role/app/*"],
+						"Effect": "Allow",
+						"Sid": "PassRole"
+					},
+
+
+
+					POLCIY GOES HERE
+					STARTS WITH
+					{
+					  "Action": [.......],
+					  "Resource": "*",
+					  "Effect": "Allow"
+					}
+					END OF POLICY
+
+
+
+
+
+
+					]
+				}
+			}
+		}
+	}
+}

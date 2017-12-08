@@ -1,0 +1,76 @@
+{
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Resources": {
+		"ReadRole": {
+			"Type": "AWS::IAM::Role",
+			"Properties": {
+				"RoleName": "hc-aegis",
+				"Path": "/hc/",
+				"AssumeRolePolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [{
+					  "Sid": "",
+					  "Effect": "Allow",
+					  "Principal": {
+					  "AWS": "arn:aws:iam::839933357981:root"
+					},
+					  "Action": "sts:AssumeRole"
+					},{
+						"Sid": "",
+						"Effect": "Allow",
+						"Principal": {
+							"Federated": "arn:aws:iam::901455435209:saml-provider/ge-saml-for-aws"
+						},
+						"Action": "sts:AssumeRoleWithSAML",
+						"Condition": {
+							"StringEquals": {
+								"SAML:aud": "https://signin.aws.amazon.com/saml"
+							}
+						}
+					}]
+				},
+				"ManagedPolicyArns": ["arn:aws:iam::901455435209:policy/cs/awsiam-sauce",
+					"arn:aws:iam::901455435209:policy/cs/awsiam-sauce-the-sequel"
+				]
+			}
+		},
+		"RolePolicies": {
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "hc-aegis-policy",
+				"Roles": ["hc-aegis"],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [{
+						"Action": ["iam:PassRole"],
+						"Resource": ["arn:aws:iam::901455435209:role/app/*"],
+						"Effect": "Allow",
+						"Sid": "PassRole"
+					},
+									{
+											"Sid": "S3ConsoleAccess",
+											"Effect": "Allow",
+											"Action": [
+													"s3:ListAllMyBuckets",
+													"s3:GetBucketLocation"
+											],
+											"Resource": "*"
+									},
+									{
+					            "Sid": "ListObjectsinBucket",
+					            "Effect": "Allow",
+					            "Action": "s3:ListBucket",
+					            "Resource": "arn:aws:s3:::gehc-aegis-boomi"
+					        },
+					        {
+					            "Sid": "ReadWriteObjectsinBucket",
+					            "Effect": "Allow",
+					            "Action": "s3:*",
+					            "Resource": "arn:aws:s3:::gehc-aegis-boomi/*"
+					        }
+					    ]
+				}
+			}
+		}
+	}
+}

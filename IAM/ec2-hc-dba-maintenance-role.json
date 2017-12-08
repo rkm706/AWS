@@ -1,0 +1,170 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ec2",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CopySnapshot",
+                "ec2:CreateSnapshot",
+                "ec2:CreateTags",
+                "ec2:CreateVolume",
+                "ec2:DeleteSnapshot",
+                "ec2:DeleteTags",
+                "ec2:Describe*",
+                "ec2:ModifySnapshotAttribute",
+                "ec2:MonitorInstances"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "rds",
+            "Effect": "Allow",
+            "Action": [
+                "rds:AddTagsToResource",
+                "rds:AddSourceIdentifierToSubscription",
+                "rds:ApplyPendingMaintenanceAction",
+                "rds:AuthorizeDBSecurityGroupIngress",
+                "rds:CopyDBClusterSnapshot",
+                "rds:CopyDBParameterGroup",
+                "rds:CopyDBSnapshot",
+                "rds:CopyOptionGroup",
+                "rds:CreateDBClusterParameterGroup",
+                "rds:CreateDBClusterSnapshot",
+                "rds:CreateDBCluster",
+                "rds:CreateDBInstance",
+                "rds:CreateDBInstanceReadReplica",
+                "rds:CreateDBParameterGroup",
+                "rds:CreateDBSecurityGroup",
+                "rds:CreateDBSnapshot",
+                "rds:CreateDBSubnetGroup",
+                "rds:CreateEventSubscription",
+                "rds:CreateOptionGroup",
+                "rds:DeleteDBClusterParameterGroup",
+                "rds:DeleteDBClusterSnapshot",
+                "rds:DeleteDBCluster",
+                "rds:DeleteDBInstance",
+                "rds:DeleteDBParameterGroup",
+                "rds:DeleteDBSecurityGroup",
+                "rds:DeleteDBSnapshot",
+                "rds:DeleteDBSubnetGroup",
+                "rds:DeleteEventSubscription",
+                "rds:DeleteOptionGroup",
+                "rds:DescribeAccountAttributes",
+                "rds:DescribeCertificates",
+                "rds:DescribeEngineDefaultClusterParameters",
+                "rds:DescribeEngineDefaultParameters",
+                "rds:DescribeDBClusterParameterGroups",
+                "rds:DescribeDBClusterParameters",
+                "rds:DescribeDBClusterSnapshots",
+                "rds:DescribeDBClusters",
+                "rds:DescribeDBInstances",
+                "rds:DescribeDBLogFiles",
+                "rds:DescribeDBParameterGroups",
+                "rds:DescribeDBParameters",
+                "rds:DescribeDBSecurityGroups",
+                "rds:DescribeDBSnapshotAttributes",
+                "rds:DescribeDBSnapshots",
+                "rds:DescribeDBEngineVersions",
+                "rds:DescribeDBSubnetGroups",
+                "rds:DescribeEventCategories",
+                "rds:DescribeEvents",
+                "rds:DescribeEventSubscriptions",
+                "rds:DescribeOptionGroups",
+                "rds:DescribeOptionGroupOptions",
+                "rds:DescribeOrderableDBInstanceOptions",
+                "rds:DescribePendingMaintenanceActions",
+                "rds:DescribeReservedDBInstances",
+                "rds:DescribeReservedDBInstancesOfferings",
+                "rds:DownloadCompleteDBLogFile",
+                "rds:DownloadDBLogFilePortion",
+                "rds:FailoverDBCluster",
+                "rds:ListTagsForResource",
+                "rds:ModifyDBClusterParameterGroup",
+                "rds:ModifyDBCluster",
+                "rds:ModifyDBInstance",
+                "rds:ModifyDBParameterGroup",
+                "rds:ModifyDBSnapshotAttribute",
+                "rds:ModifyDBSubnetGroup",
+                "rds:ModifyEventSubscription",
+                "rds:ModifyOptionGroup",
+                "rds:PromoteReadReplica",
+                "rds:RebootDBInstance",
+                "rds:RemoveSourceIdentifierFromSubscription",
+                "rds:RemoveTagsFromResource",
+                "rds:RestoreDBClusterFromSnapshot",
+                "rds:RestoreDBClusterToPointInTime",
+                "rds:RestoreDBInstanceFromDBSnapshot",
+                "rds:RestoreDBInstanceToPointInTime",
+                "rds:ResetDBClusterParameterGroup",
+                "rds:ResetDBParameterGroup",
+                "rds:RevokeDBSecurityGroupIngress"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "s3",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:ListAllMyBuckets",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:ListBucketVersions",
+                "s3:ListMultipartUploadParts",
+                "s3:DeleteObject"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "trustedadvisor",
+            "Effect": "Allow",
+            "Action": [
+                "trustedadvisor:Describe*"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "cloudwatch",
+            "Effect": "Allow",
+            "Action": [
+                "cloudwatch:DeleteAlarms",
+                "cloudwatch:DescribeAlarmHistory",
+                "cloudwatch:DescribeAlarms",
+                "cloudwatch:DescribeAlarmsForMetric",
+                "cloudwatch:DisableAlarmActions",
+                "cloudwatch:EnableAlarmActions",
+                "cloudwatch:GetMetricData",
+                "cloudwatch:GetMetricStatistics",
+                "cloudwatch:ListMetrics",
+                "cloudwatch:PutMetricAlarm",
+                "cloudwatch:PutMetricData",
+                "cloudwatch:SetAlarmState ",
+                "events:DeleteRule",
+                "events:DescribeRule",
+                "events:DisableRule",
+                "events:EnableRule",
+                "events:ListRuleNamesByTarget",
+                "events:ListRules",
+                "events:ListTargetsByRule",
+                "events:PutEvents",
+                "events:PutRule",
+                "events:PutTargets",
+                "events:RemoveTargets",
+                "events:TestEventPattern"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}

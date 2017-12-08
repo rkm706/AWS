@@ -1,0 +1,18 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ProtectS3",
+            "Action": [
+                "s3:PutBucketAcl",
+                "s3:PutBucketRequestPayment",
+                "s3:PutBucketWebsite",
+                "s3:PutBucketPolicy"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Effect": "Deny"
+        }
+    ]
+}

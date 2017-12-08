@@ -1,0 +1,18 @@
+{
+    "GroupName": "@GE_AWS_healthcare-preprod_hc/hc-clddevops_164996153968",
+    "PolicyDocument": {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Action": [
+                    "sts:AssumeRole"
+                ],
+                "Resource": [
+                    "arn:aws:iam::164996153968:role/hc/hc-clddevops"
+                ],
+                "Effect": "Allow"
+            }
+        ]
+    },
+    "PolicyName": "preprod-hc-clddevops-assume-role"
+}

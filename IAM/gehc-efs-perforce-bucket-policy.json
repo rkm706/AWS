@@ -1,0 +1,20 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadForGetBucketObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::gehc-efs-perforce/*",
+            "Condition": {
+                "IpAddress": {
+                    "aws:SourceIp": [
+                        "10.229.160.0/21",
+                        "10.229.168.0/21"
+                    ]
+                }
+            }
+        }
+    ]
+}

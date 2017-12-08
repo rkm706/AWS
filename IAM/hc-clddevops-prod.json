@@ -1,0 +1,287 @@
+Password:
+Last login: Mon Jan 30 15:56:59 2017 from 3.202.154.211
+****************************************************************
+ VPC ID                             vpc-90a461f5
+ Instance ID                        i-5cf042c7
+ FQDN                               i-5cf042c7.cloud.health.ge.com
+ HostName                           i-5cf042c7
+ Platform                           centos 6.7 (t2.medium)
+ Cloud                              AWS
+ Farm, Scalr env                    HC Cloud R&D (id: 2714, GEHC US NonProd)
+ Farm owner                         Robert.Mackey@ge.com
+ Farm role, index                   AWS-CENTOS6 #1 (AWS-CENTOS6)
+ Private IP Address                 10.229.160.188
+ CIDR region                        aws_int_prod
+ Chef environment                   dev (healthcare)
+ App env                            prod
+ App role                           app
+ App UAI                            UAI2001600
+ App backup                         false
+ App Restricted                     false
+ App GXP                            false
+****************************************************************
+[c2018804@i-5cf042c7 ~]$ sudo su
+[sudo] password for c2018804:
+[root@i-5cf042c7 c2018804]# cd /aws/scripts/cfscripts/
+[root@i-5cf042c7 cfscripts]# ls -ltr
+total 92
+-rwxrwxrwx. 1 root root  3108 Sep 27 18:04 hc-cldread-prod.json
+-rwxrwxrwx. 1 root root  3108 Sep 27 18:04 hc-cldread-emea.json
+-rwxrwxrwx. 1 root root  2261 Oct  4 16:20 hc-cldops-preprod.json
+-rwxrwxrwx. 1 root root  2261 Oct  4 18:06 hc-cldops-prod.json
+-rwxrwxrwx. 1 root root  2261 Oct  4 18:41 hc-cldops-emea.json
+-rwx------. 1 root root  2999 Oct  5 20:26 hc-cld-dba-prod.json
+-rwx------. 1 root root  2999 Oct  5 20:28 hc-cld-dba-emea.json
+-rwxrwxrwx. 1 root root  3025 Nov  2 18:28 hc-cld-dba-preprod.json
+-rwx------. 1 root root  3002 Nov  8 22:00 hc-cld-devops-prod.json
+-rwxrwxrwx. 1 root root  3154 Dec  9 19:51 hc-cldread-preprod.json
+-rwx------. 1 root root  3002 Jan 24 21:23 hc-cld-devops-preprod-bkup.json
+-rwx------. 1 root root 10643 Jan 25 19:52 hc-cld-devops-emea.json
+-rwx------. 1 root root 13853 Jan 26 18:13 hc-cldarch-preprod-bkp.json
+-rwxrwxrwx. 1 root root  8973 Jan 27 01:10 hc-cld-devops-preprod.json
+-rwx------. 1 root root  5211 Jan 30 13:40 hc-cldarch-preprod.json
+[root@i-5cf042c7 cfscripts]# cd..
+bash: cd..: command not found
+[root@i-5cf042c7 cfscripts]# cd ..
+[root@i-5cf042c7 scripts]# ls -ltr
+total 24
+-rw-------. 1 root root  187 Oct  6 17:59 dmsAssumeRolePolicyDocument2.json
+-rw-------. 1 root root  372 Oct  6 17:59 dmsAssumeRolePolicyDocument3.json
+-rw-------. 1 root root  145 Oct  6 17:59 dmsAssumeRolePolicyDocument.json
+-rwxrwxrwx. 1 root root 2064 Nov  2 18:09 aws-auth.sh
+drwx------. 2 root root 4096 Jan 26 18:13 cfscripts
+drwx------. 2 root root 4096 Jan 30 16:05 api
+[root@i-5cf042c7 scripts]# cd api
+[root@i-5cf042c7 api]# ls -ltr
+total 88
+-rw-------. 1 root root  472 Mar 22  2016 212070111_bu-poweruser_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  474 Apr  7  2016 501805414_bu-poweruser_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  457 Apr  8  2016 502620482_bu-user_healthcare-prod_credentials.key.zip
+-rw-------. 1 root root  454 Apr 11  2016 502620733_bu-user_healthcare-prod_credentials.key.zip
+-rw-------. 1 root root  462 Apr 11  2016 212071099_bu-user_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  470 Apr 12  2016 212467693_bu-poweruser_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  473 May 19  2016 212477144_bu-poweruser_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  473 Jun 21  2016 502633314_bu-poweruser_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  469 Jul 21  2016 502629092_bu-poweruser_healthcare-preprod_credentials.key.zip
+-r--r-----. 1 root root  467 Jul 25  2016 212488156_bu-poweruser_healthcare-prod_credentials.key.zip
+-rw-------. 1 root root  472 Aug  8 18:53 502659792_bu-poweruser_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  470 Aug  8 18:54 502659790_bu-poweruser_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  464 Sep 19 13:42 212009163_bu-poweruser_healthcare-prod_credentials.key.zip
+-rw-------. 1 root root  472 Sep 19 18:57 501332215_bu-poweruser_healthcare-preprod_credentials.key.zip
+-rwx------. 1 root root 6223 Sep 29 15:35 manage_api_user.sh
+-rw-------. 1 root root  472 Oct 14 17:01 305027984_bu-poweruser_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  471 Nov 18 20:20 502684436_hc-clddevops_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  470 Nov 22 21:55 212417137_hc-clddevops_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  464 Dec 13 20:30 212481589_hc-clddevops_healthcare-prod_credentials.key.zip
+-rw-------. 1 root root  471 Dec 16 16:48 305012502_hc-clddevops_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  466 Jan 30 16:05 212070111_hc-cldarch_healthcare-preprod_credentials.key.zip
+[root@i-5cf042c7 api]# ./manage_api_user.sh healthcare-preprod 502715161 502715161@mail.ad.ge.com hc-cld-devops hc-iam-admin
+Checking your permission on the group...
+{
+    "Group": {
+        "Path": "/bu/healthcare/preprod/",
+        "CreateDate": "2017-01-28T00:55:31Z",
+        "GroupId": "AGPAJR5J3PJBV6Z2JYDGI",
+        "Arn": "arn:aws:iam::839933357981:group/bu/healthcare/preprod/@GE_AWS_healthcare-preprod_hc-cld-devops_164996153968",
+        "GroupName": "@GE_AWS_healthcare-preprod_hc-cld-devops_164996153968"
+    },
+    "Users": [
+        {
+            "UserName": "200018804",
+            "Path": "/bu/healthcare/",
+            "CreateDate": "2016-02-17T18:55:58Z",
+            "UserId": "AIDAIOA7FPIOTK7RIDNP4",
+            "Arn": "arn:aws:iam::839933357981:user/bu/healthcare/200018804"
+        }
+    ]
+}
+You are authorized to manage group @GE_AWS_healthcare-preprod_hc-cld-devops_164996153968
+Creating user...
+{
+    "User": {
+        "UserName": "502715161",
+        "Path": "/bu/healthcare/",
+        "CreateDate": "2017-02-01T15:02:11.555Z",
+        "UserId": "AIDAI7DDP3YISA2AF24Q2",
+        "Arn": "arn:aws:iam::839933357981:user/bu/healthcare/502715161"
+    }
+}
+Creating keys...
+Zipping access keys...
+PIN: 15119 12645
+zip -P 1511912645 502715161_hc-cld-devops_healthcare-preprod_credentials.key.zip 502715161_hc-cld-devops_healthcare-preprod_credentials.key
+  adding: 502715161_hc-cld-devops_healthcare-preprod_credentials.key (deflated 30%)
+Adding user to group...
+Action taken:
+
+1. User 502715161 created:true
+
+2. Key for 502715161 created:true
+
+3. User 502715161 granted access to hc-cld-devops:true
+
+4.
+
+Please contact robert.mackey@ge.com on IM to obtain unlock code for the credentials file.
+
+Thanks
+--
+AWS IAM team
+Action taken:\n\n1. User 502715161 created:true\n\n2. Key for 502715161 created:true\n\n3. User 502715161 granted access to hc-cld-devops:true\n\n4.\n\nPlease contact robert.mackey@ge.com on IM to obtain unlock code for the credentials file.\n\nThanks\n--\nAWS IAM team
+[root@i-5cf042c7 api]# ./manage_api_user.sh healthcare-preprod 502667283 502667283@mail.ad.ge.com hc-cld-devops hc-iam-admin
+Checking your permission on the group...
+{
+    "Group": {
+        "Path": "/bu/healthcare/preprod/",
+        "CreateDate": "2017-01-28T00:55:31Z",
+        "GroupId": "AGPAJR5J3PJBV6Z2JYDGI",
+        "Arn": "arn:aws:iam::839933357981:group/bu/healthcare/preprod/@GE_AWS_healthcare-preprod_hc-cld-devops_164996153968",
+        "GroupName": "@GE_AWS_healthcare-preprod_hc-cld-devops_164996153968"
+    },
+    "Users": [
+        {
+            "UserName": "502715161",
+            "Path": "/bu/healthcare/",
+            "CreateDate": "2017-02-01T15:02:11Z",
+            "UserId": "AIDAI7DDP3YISA2AF24Q2",
+            "Arn": "arn:aws:iam::839933357981:user/bu/healthcare/502715161"
+        },
+        {
+            "UserName": "200018804",
+            "Path": "/bu/healthcare/",
+            "CreateDate": "2016-02-17T18:55:58Z",
+            "UserId": "AIDAIOA7FPIOTK7RIDNP4",
+            "Arn": "arn:aws:iam::839933357981:user/bu/healthcare/200018804"
+        }
+    ]
+}
+You are authorized to manage group @GE_AWS_healthcare-preprod_hc-cld-devops_164996153968
+Creating user...
+{
+    "User": {
+        "UserName": "502667283",
+        "Path": "/bu/healthcare/",
+        "CreateDate": "2017-02-01T15:18:13.400Z",
+        "UserId": "AIDAJMM77XRSHR2DULTPE",
+        "Arn": "arn:aws:iam::839933357981:user/bu/healthcare/502667283"
+    }
+}
+Creating keys...
+Zipping access keys...
+PIN: 23055 12509
+zip -P 2305512509 502667283_hc-cld-devops_healthcare-preprod_credentials.key.zip 502667283_hc-cld-devops_healthcare-preprod_credentials.key
+  adding: 502667283_hc-cld-devops_healthcare-preprod_credentials.key (deflated 30%)
+Adding user to group...
+Action taken:
+
+1. User 502667283 created:true
+
+2. Key for 502667283 created:true
+
+3. User 502667283 granted access to hc-cld-devops:true
+
+4.
+
+Please contact robert.mackey@ge.com on IM to obtain unlock code for the credentials file.
+
+Thanks
+--
+AWS IAM team
+Action taken:\n\n1. User 502667283 created:true\n\n2. Key for 502667283 created:true\n\n3. User 502667283 granted access to hc-cld-devops:true\n\n4.\n\nPlease contact robert.mackey@ge.com on IM to obtain unlock code for the credentials file.\n\nThanks\n--\nAWS IAM team
+[root@i-5cf042c7 api]# aws iam add-user-to-group --user-name 502695266 --group-name @GE_AWS_healthcare-preprod_hc-cld-devops_164996153968 --profile hc-iam-admin
+[root@i-5cf042c7 api]# ls -ltr
+total 96
+-rw-------. 1 root root  472 Mar 22  2016 212070111_bu-poweruser_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  474 Apr  7  2016 501805414_bu-poweruser_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  457 Apr  8  2016 502620482_bu-user_healthcare-prod_credentials.key.zip
+-rw-------. 1 root root  454 Apr 11  2016 502620733_bu-user_healthcare-prod_credentials.key.zip
+-rw-------. 1 root root  462 Apr 11  2016 212071099_bu-user_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  470 Apr 12  2016 212467693_bu-poweruser_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  473 May 19  2016 212477144_bu-poweruser_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  473 Jun 21  2016 502633314_bu-poweruser_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  469 Jul 21  2016 502629092_bu-poweruser_healthcare-preprod_credentials.key.zip
+-r--r-----. 1 root root  467 Jul 25  2016 212488156_bu-poweruser_healthcare-prod_credentials.key.zip
+-rw-------. 1 root root  472 Aug  8 18:53 502659792_bu-poweruser_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  470 Aug  8 18:54 502659790_bu-poweruser_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  464 Sep 19 13:42 212009163_bu-poweruser_healthcare-prod_credentials.key.zip
+-rw-------. 1 root root  472 Sep 19 18:57 501332215_bu-poweruser_healthcare-preprod_credentials.key.zip
+-rwx------. 1 root root 6223 Sep 29 15:35 manage_api_user.sh
+-rw-------. 1 root root  472 Oct 14 17:01 305027984_bu-poweruser_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  471 Nov 18 20:20 502684436_hc-clddevops_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  470 Nov 22 21:55 212417137_hc-clddevops_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  464 Dec 13 20:30 212481589_hc-clddevops_healthcare-prod_credentials.key.zip
+-rw-------. 1 root root  471 Dec 16 16:48 305012502_hc-clddevops_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  466 Jan 30 16:05 212070111_hc-cldarch_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  473 Feb  1 15:02 502715161_hc-cld-devops_healthcare-preprod_credentials.key.zip
+-rw-------. 1 root root  473 Feb  1 15:18 502667283_hc-cld-devops_healthcare-preprod_credentials.key.zip
+[root@i-5cf042c7 api]# cp 502715161_hc-cld-devops_healthcare-preprod_credentials.key.zip /tmp
+[root@i-5cf042c7 api]# cp 502667283_hc-cld-devops_healthcare-preprod_credentials.key.zip /tmp
+[root@i-5cf042c7 api]# cd /tmp
+[root@i-5cf042c7 tmp]# ls -ltr
+total 96
+drwx------. 3 root     root      4096 Mar 22  2016 tmpj44vvA
+-rwxrwxrwx. 1 root     root      2224 Sep 30 17:47 hc-cldops-emea.json
+-rwxrwxrwx. 1 root     root      2224 Sep 30 17:47 hc-cldops-prod.json
+-rwxrwxrwx. 1 c2018804 c2018804  2224 Sep 30 17:47 hc-cldops-preprod.json
+-rw-------. 1 c2018804 c2018804  2897 Oct  5 13:44 hc-cld-dba-preprod.json
+-rw-------. 1 c2018804 c2018804   145 Oct  6 17:55 dmsAssumeRolePolicyDocument.json
+-rw-------. 1 c2018804 c2018804   372 Oct  6 17:55 dmsAssumeRolePolicyDocument3.json
+-rw-------. 1 c2018804 c2018804   187 Oct  6 17:55 dmsAssumeRolePolicyDocument2.json
+
+
+{
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Resources": {
+                "DevOpsRole": {
+                        "Type": "AWS::IAM::Role",
+                        "Properties": {
+                                "RoleName": "hc-clddevops",
+                                "Path": "/hc/",
+                                "AssumeRolePolicyDocument": {
+                                        "Version": "2012-10-17",
+                                        "Statement": [
+                                                {
+                                                "Sid": "",
+                                                "Effect": "Allow",
+                                                "Principal": {
+                                                  "AWS": "arn:aws:iam::839933357981:root"
+                                                },
+                                                "Action": "sts:AssumeRole"
+                                                },
+                                                {
+                                                "Sid": "",
+                                                "Effect": "Allow",
+                                                "Principal": {
+                                                        "Federated": "arn:aws:iam::901455435209:saml-provider/ge-saml-for-aws"
+                                                },
+                                                "Action": "sts:AssumeRoleWithSAML",
+                                                "Condition": {
+                                                        "StringEquals": {
+                                                                "SAML:aud": "https://signin.aws.amazon.com/saml"
+                                                        }
+                                                }
+                                        }]
+                                },
+                                "ManagedPolicyArns": ["arn:aws:iam::901455435209:policy/cs/awsiam-sauce",
+                                        "arn:aws:iam::901455435209:policy/cs/awsiam-sauce-the-sequel"
+                                ]
+                        }
+                },
+                "RolePolicies": {
+                        "Type": "AWS::IAM::Policy",
+                        "Properties": {
+                                "PolicyName": "hc-clddevops-policy",
+                                "Roles": ["hc-clddevops"],
+                                "PolicyDocument": {
+                                        "Version": "2012-10-17",
+                                        "Statement": [{
+                                                "Action": ["iam:PassRole"],
+                                                "Resource": ["arn:aws:iam::901455435209:role/app/*"],
+                                                "Effect": "Allow",
+                                                "Sid": "PassRole"
+                                        },
+                                        {
+                                                "Sid": "SNS",
+                                                "Action": [
+                                                        "sns:AddPermission",
+                                                                                                                                                                    1,1           Top
